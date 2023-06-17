@@ -44,10 +44,10 @@ const TestFetchNewApi = () => {
         datasets: [
           {
             fill: false,
-            label: 'bitcoin',
+            label: 'Bitcoin.',
             data: testResp.map((val) => val.y),
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            borderColor: 'rgb(255, 140, 0)',
+            backgroundColor: 'rgb(148, 0, 211)',
           },
         ],
       };
@@ -59,8 +59,13 @@ const TestFetchNewApi = () => {
   }, []);
 
   return (
-    <div>
-      {chartData && <Line options={{ responsive: true }} data={chartData} />}
+    <div className="graphic-line">
+      {chartData && (
+        <Line
+          options={{ responsive: true, maintainAspectRatio: false }}
+          data={chartData}
+        />
+      )}
     </div>
   );
 };

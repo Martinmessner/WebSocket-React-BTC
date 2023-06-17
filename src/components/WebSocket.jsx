@@ -35,7 +35,10 @@ const WebSocketComponent = () => {
       );
 
       socketPrice.onopen = () => {
-        console.log('Conexión WebSocket Porcentaje establecida');
+        console.log(
+          '%cQue buscas?',
+          'background: orange; color: white; font-size: 15px'
+        );
       };
 
       socketPrice.onmessage = (event) => {
@@ -48,7 +51,7 @@ const WebSocketComponent = () => {
       };
 
       socketPrice.onclose = () => {
-        console.log('Conexión WebSocket Price cerrada');
+        console.log('Conexión cerrada');
       };
 
       return () => {
@@ -64,7 +67,10 @@ const WebSocketComponent = () => {
       );
 
       socket.onopen = () => {
-        console.log('Conexión WebSocket establecida');
+        console.log(
+          '%cConexión establecida correctamente.',
+          'background: red; color: white; font-size: 4px'
+        );
       };
 
       socket.onmessage = async (event) => {
@@ -77,7 +83,7 @@ const WebSocketComponent = () => {
       };
 
       socket.onclose = () => {
-        console.log('Conexión WebSocket cerrada');
+        console.log('Conexión cerrada');
       };
 
       resolve(); // Resuelve la promesa una vez que la conexión esté establecida
@@ -103,15 +109,15 @@ const WebSocketComponent = () => {
   }, [prevDataBtc, dataBtc]);
 
   return (
-    <div>
+    <div className="contenedor-price">
       {loading ? (
         <SpinnerLoading />
       ) : (
         <>
           {dataBtc ? <p style={{ color: color }}>Bitcoin: {dataBtc}</p> : null}
-          {dataBtc && (
-            <p>
-              Cambio en 24 h: +{percentagePriceValue} {pricePercentage}%
+          {percentagePriceValue && pricePercentage && (
+            <p className="price-value">
+              Cambio en 24 h: {percentagePriceValue} +{pricePercentage}%
             </p>
           )}
         </>
