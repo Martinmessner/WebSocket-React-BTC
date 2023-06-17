@@ -97,9 +97,9 @@ const WebSocketComponent = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (dataBtc > prevDataBtc) {
-        Setcolor('green');
+        Setcolor('#21ff00');
       } else {
-        Setcolor('red');
+        Setcolor('#ff0000');
       }
     }, 100);
 

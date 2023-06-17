@@ -28,13 +28,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-
-#bar-example-3 {
-  height: 200px;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
 .graphic-line {
   width: 100%;
   height: 460px;
@@ -46,4 +39,10 @@ button:focus-visible {
 
 .price-value {
   color: orange;
+}
+
+.titulo {
+  display: flex;
+  justify-content: center;
+  color: yellow;
 }
