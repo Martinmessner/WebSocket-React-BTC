@@ -23,15 +23,16 @@ ChartJS.register(
   Legend
 );
 
-// Filler ChartJS ?
-
 const TestFetchNewApi = () => {
   const [chartData, setChartData] = useState(null);
+  const [days, Setdays] = useState(4);
+
+  console.log(days);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=4'
+        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${days}}`
       );
       const resp = await response.json();
       const testResp = resp.prices.map((value) => ({
@@ -56,10 +57,14 @@ const TestFetchNewApi = () => {
     };
 
     fetchData();
-  }, []);
+  }, [days]);
 
   return (
     <div className="graphic-line">
+      <button onClick={() => Setdays(4)}>4D</button>
+      <button onClick={() => Setdays(7)}>7D</button>
+      <button onClick={() => Setdays(10)}>10D</button>
+      <button onClick={() => Setdays(30)}>30D</button>
       {chartData && (
         <Line
           options={{ responsive: true, maintainAspectRatio: false }}
