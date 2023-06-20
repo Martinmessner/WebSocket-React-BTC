@@ -1,10 +1,11 @@
 import WebSocketComponent from './components/WebSocket';
-import TestFetchNewApi from './components/Test-React-Chartsjs2';
+import TestFetchNewApi from './components/React-Chart2';
+import HeaderReact from './components/Header';
 
 function App() {
   return (
     <div>
-      <h1 className="titulo">Bienvenido a Bitcoin Express. (En Tiempo Real)</h1>
+      <HeaderReact />
       <WebSocketComponent />
       <TestFetchNewApi />
     </div>
@@ -12,5 +13,3 @@ function App() {
 }
 
 export default App;
-
-/* */

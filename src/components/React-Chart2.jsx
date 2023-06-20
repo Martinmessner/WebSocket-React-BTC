@@ -23,7 +23,7 @@ ChartJS.register(
   Legend
 );
 
-const TestFetchNewApi = () => {
+const FetchDataApi = () => {
   const [chartData, setChartData] = useState(null);
   const [days, Setdays] = useState(4);
 
@@ -61,10 +61,13 @@ const TestFetchNewApi = () => {
 
   return (
     <div className="graphic-line">
-      <button onClick={() => Setdays(4)}>4D</button>
-      <button onClick={() => Setdays(7)}>7D</button>
-      <button onClick={() => Setdays(10)}>10D</button>
-      <button onClick={() => Setdays(30)}>30D</button>
+      <div className="button-days-btc">
+        <button onClick={() => Setdays(1)}>1D</button>
+        <button onClick={() => Setdays(4)}>4D</button>
+        <button onClick={() => Setdays(7)}>7D</button>
+        <button onClick={() => Setdays(10)}>10D</button>
+        <button onClick={() => Setdays(30)}>30D</button>
+      </div>
       {chartData && (
         <Line
           options={{ responsive: true, maintainAspectRatio: false }}
@@ -75,4 +78,4 @@ const TestFetchNewApi = () => {
   );
 };
 
-export default TestFetchNewApi;
+export default FetchDataApi;

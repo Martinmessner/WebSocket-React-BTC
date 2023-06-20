@@ -78,7 +78,7 @@ const WebSocketComponent = () => {
         const price = parseFloat(trade.p);
         SetdataBtc(price);
 
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 100));
         SetprevDataBtc(price);
       };
 
@@ -97,9 +97,9 @@ const WebSocketComponent = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (dataBtc > prevDataBtc) {
-        Setcolor('#21ff00');
+        Setcolor('rgb(14, 203, 129)');
       } else {
-        Setcolor('#ff0000');
+        Setcolor('rgb(246, 70, 93)');
       }
     }, 100);
 
@@ -114,11 +114,18 @@ const WebSocketComponent = () => {
         <SpinnerLoading />
       ) : (
         <>
-          {dataBtc ? <p style={{ color: color }}>Bitcoin: {dataBtc}</p> : null}
+          {dataBtc ? (
+            <h1 className="bitcoin-main" style={{ color: color }}>
+              Bitcoin: {dataBtc}
+            </h1>
+          ) : null}
           {percentagePriceValue && pricePercentage && (
-            <p className="price-value">
-              Cambio en 24 h: {percentagePriceValue} +{pricePercentage}%
-            </p>
+            <div>
+              En las Ultimas 24 hs:
+              <h2 className="price-value">
+                {percentagePriceValue} +{pricePercentage}%
+              </h2>
+            </div>
           )}
         </>
       )}

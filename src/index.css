@@ -28,9 +28,31 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.header-main {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.header-main > img {
+  width: 3em;
+  object-fit: contain;
+}
+
+.bitcoin-main {
+  font-size: 1.2em;
+}
+
 .graphic-line {
   width: 100%;
   height: 460px;
+}
+
+.button-days-btc {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: .7em;
 }
 
 .contenedor-price {
@@ -38,7 +60,11 @@ button:focus-visible {
 }
 
 .price-value {
-  color: orange;
+  color: rgb(14, 203, 129);
+}
+
+.price-flex-value {
+  display: flex;
 }
 
 .titulo {
