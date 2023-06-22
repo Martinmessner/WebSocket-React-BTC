@@ -45,7 +45,7 @@ const FetchDataApi = () => {
         datasets: [
           {
             fill: false,
-            label: 'Bitcoin.',
+            label: 'Grafico de Bitcoin.',
             data: testResp.map((val) => val.y),
             borderColor: 'rgb(255, 140, 0)',
             backgroundColor: 'rgb(148, 0, 211)',
@@ -62,11 +62,11 @@ const FetchDataApi = () => {
   return (
     <div className="graphic-line">
       <div className="button-days-btc">
-        <button onClick={() => Setdays(1)}>1D</button>
-        <button onClick={() => Setdays(4)}>4D</button>
-        <button onClick={() => Setdays(7)}>7D</button>
-        <button onClick={() => Setdays(10)}>10D</button>
-        <button onClick={() => Setdays(30)}>30D</button>
+        <button onClick={() => Setdays(1)}>1 Dia.</button>
+        <button onClick={() => Setdays(4)}>4 Dias.</button>
+        <button onClick={() => Setdays(7)}>7 Dias.</button>
+        <button onClick={() => Setdays(10)}>10 Dias.</button>
+        <button onClick={() => Setdays(30)}>30 Dias.</button>
       </div>
       {chartData && (
         <Line

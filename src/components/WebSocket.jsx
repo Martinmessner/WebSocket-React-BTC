@@ -45,9 +45,9 @@ const WebSocketComponent = () => {
         const data = JSON.parse(event.data);
         const percentage = parseFloat(data.P);
         const percentagePriceValue = parseFloat(data.p);
-        SetpricePercentage(percentage);
+        SetpricePercentage(percentage.toFixed(2));
         SetpercentagePriceValue(percentagePriceValue);
-        resolve(); // Resuelve la promesa una vez que los datos estén listos
+        resolve();
       };
 
       socketPrice.onclose = () => {
@@ -86,7 +86,7 @@ const WebSocketComponent = () => {
         console.log('Conexión cerrada');
       };
 
-      resolve(); // Resuelve la promesa una vez que la conexión esté establecida
+      resolve();
 
       return () => {
         socket.close();
@@ -115,15 +115,18 @@ const WebSocketComponent = () => {
       ) : (
         <>
           {dataBtc ? (
-            <h1 className="bitcoin-main" style={{ color: color }}>
-              Bitcoin: {dataBtc}
-            </h1>
+            <header className="header-main">
+              <img src="/btc.webp" alt="btc"></img>
+              <h1 className="bitcoin-main" style={{ color: color }}>
+                Bitcoin: {dataBtc} (En Tiempo Real)
+              </h1>
+            </header>
           ) : null}
           {percentagePriceValue && pricePercentage && (
             <div>
-              En las Ultimas 24 hs:
+              En las Ultimas 24 horas, esto paso:
               <h2 className="price-value">
-                {percentagePriceValue} +{pricePercentage}%
+                +{percentagePriceValue} +{pricePercentage}%
               </h2>
             </div>
           )}

@@ -21,11 +21,13 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
+
 button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button:focus-visible {  
+  background-color: orange;
 }
 
 .header-main {
@@ -51,6 +53,7 @@ button:focus-visible {
 .button-days-btc {
   text-align: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: .7em;
 }
