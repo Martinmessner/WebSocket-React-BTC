@@ -123,12 +123,12 @@ const WebSocketComponent = () => {
             </header>
           ) : null}
           {percentagePriceValue && pricePercentage && (
-            <div>
+            <section className="section-price">
               En las Ultimas 24 horas, esto paso:
               <h2 className="price-value">
                 +{percentagePriceValue} +{pricePercentage}%
               </h2>
-            </div>
+            </section>
           )}
         </>
       )}
