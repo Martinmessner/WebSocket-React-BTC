@@ -27,8 +27,6 @@ const FetchDataApi = () => {
   const [chartData, setChartData] = useState(null);
   const [days, Setdays] = useState(4);
 
-  console.log(days);
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
