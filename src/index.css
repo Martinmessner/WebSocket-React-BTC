@@ -91,6 +91,6 @@ button:focus-visible {
 @media (max-width: 480px) {
   /* Estilos aplicados aquí */
   .graphic-line {
-    height: 800px;
+    min-width: 600px;
   }
 }
