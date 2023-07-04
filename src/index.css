@@ -87,12 +87,3 @@ button:focus-visible {
   color: yellow;
 }
 
-
-@media (max-width: 480px) {
-  /* Estilos aplicados aquí */
-  .graphic-line {
-    min-width: 600px;
-    height: 900px;
-  }
- 
-}
