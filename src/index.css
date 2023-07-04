@@ -92,9 +92,7 @@ button:focus-visible {
   /* Estilos aplicados aquí */
   .graphic-line {
     min-width: 600px;
-    height: 700px;
+    height: 900px;
   }
-  .graphic-line > canvas {
-    height: 1000px;
-  }
+ 
 }
