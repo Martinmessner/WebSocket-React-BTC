@@ -86,3 +86,11 @@ button:focus-visible {
   justify-content: center;
   color: yellow;
 }
+
+
+@media (max-width: 480px) {
+  /* Estilos aplicados aquí */
+  .graphic-line {
+    height: 800px;
+  }
+}
