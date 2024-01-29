@@ -99,7 +99,8 @@ const WebSocketComponent = () => {
               >
                 {CRYPTOMONEDAS.map((cryptoMoney) => (
                   <option value={cryptoMoney.value} key={cryptoMoney.value}>
-                    {cryptoMoney.label}
+                    {cryptoMoney.label.charAt(0).toUpperCase() +
+                      cryptoMoney.label.slice(1).toLowerCase()}
                   </option>
                 ))}
               </select>
