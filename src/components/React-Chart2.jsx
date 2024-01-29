@@ -73,7 +73,13 @@ const FetchDataApi = () => {
   return (
     <div className="graphic-line">
       <div className="button-days-btc">
-        <select id="btc" name="btc" onChange={test} value={cryptoCoin}>
+        <select
+          className="options-cryptovalue"
+          id="btc"
+          name="btc"
+          onChange={test}
+          value={cryptoCoin}
+        >
           {CRYPTOMONEDAS.map((cryptoMoney) => (
             <option value={cryptoMoney.label} key={cryptoMoney.label}>
               {cryptoMoney.label.charAt(0).toUpperCase() +

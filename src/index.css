@@ -41,6 +41,7 @@ button:focus-visible {
   justify-content: center;
   gap: 1em;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .header-main > img {
@@ -88,10 +89,21 @@ button:focus-visible {
 }
 
 .options-cryptovalue {
-  padding: .5em;
+ 
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.5em 0em;
+  font-size: 1em;
+  font-weight: 500;
+  align-items: center;
+  font-family: inherit;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  text-align: center;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 320px) {
   /* Estilos aplicados aquí */
   .graphic-line {
     min-width: 600px;
