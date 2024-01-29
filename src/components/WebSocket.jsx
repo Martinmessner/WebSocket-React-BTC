@@ -10,8 +10,6 @@ const WebSocketComponent = () => {
   const [percentagePriceValue, setPercentagePriceValue] = useState('');
   const [loading, setLoading] = useState(true);
   const [cryptoValue, setCryptoValue] = useState('btcusdt');
-  const [socketTrade, setSocketTrade] = useState(null);
-  const [socketTicker, setSocketTicker] = useState(null);
 
   const changeValueCrypto = (e) => {
     setCryptoValue(e.target.value);
@@ -33,7 +31,6 @@ const WebSocketComponent = () => {
     const newSocketTrade = new window.WebSocket(
       `wss://stream.binance.com:9443/ws/${cryptoValue}@trade`
     );
-    setSocketTrade(newSocketTrade);
 
     newSocketTrade.onmessage = async (event) => {
       const trade = JSON.parse(event.data);
@@ -47,7 +44,6 @@ const WebSocketComponent = () => {
     const newSocketTicker = new window.WebSocket(
       `wss://stream.binance.com:9443/ws/${cryptoValue}@ticker`
     );
-    setSocketTicker(newSocketTicker);
 
     newSocketTicker.onmessage = (event) => {
       const data = JSON.parse(event.data);
