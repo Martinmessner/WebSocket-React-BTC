@@ -87,6 +87,9 @@ button:focus-visible {
   color: yellow;
 }
 
+.options-cryptovalue {
+  padding: .5em;
+}
 
 @media (max-width: 480px) {
   /* Estilos aplicados aquí */

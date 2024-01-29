@@ -92,6 +92,7 @@ const WebSocketComponent = () => {
                 Bitcoin: {dataBtc} (En Tiempo Real)
               </h1>
               <select
+                className="options-cryptovalue"
                 id="btc"
                 name="btc"
                 onChange={changeValueCrypto}
