@@ -1,106 +1,77 @@
 import { useState, useEffect } from 'react';
 import { SpinnerLoading } from './Spinner';
+import { CRYPTOMONEDAS } from './cryptos';
 
 const WebSocketComponent = () => {
-  const [dataBtc, SetdataBtc] = useState(0);
-  const [prevDataBtc, SetprevDataBtc] = useState(0);
-  const [color, Setcolor] = useState('');
-  const [pricePercentage, SetpricePercentage] = useState('');
-  const [percentagePriceValue, SetpercentagePriceValue] = useState('');
-  const [loading, Setloading] = useState(true);
+  const [dataBtc, setDataBtc] = useState(0);
+  const [prevDataBtc, setPrevDataBtc] = useState(0);
+  const [color, setColor] = useState('');
+  const [pricePercentage, setPricePercentage] = useState('');
+  const [percentagePriceValue, setPercentagePriceValue] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [cryptoValue, setCryptoValue] = useState('btcusdt');
+  const [socketTrade, setSocketTrade] = useState(null);
+  const [socketTicker, setSocketTicker] = useState(null);
+
+  const changeValueCrypto = (e) => {
+    setCryptoValue(e.target.value);
+  };
 
   useEffect(() => {
-    Setloading(true);
+    setLoading(true);
     if (dataBtc !== 0) {
       document.title = `${dataBtc} | BTC.`;
     } else {
       document.title = 'CryptoCode.';
     }
-    Setloading(false);
+    setLoading(false);
   }, [dataBtc]);
 
   useEffect(() => {
-    Setloading(true);
-    const connectWebSockets = async () => {
-      await Promise.all([connectWebSocket(), connectWebSocketPercentage()]);
-      Setloading(false);
+    setLoading(true);
+
+    const newSocketTrade = new window.WebSocket(
+      `wss://stream.binance.com:9443/ws/${cryptoValue}@trade`
+    );
+    setSocketTrade(newSocketTrade);
+
+    newSocketTrade.onmessage = async (event) => {
+      const trade = JSON.parse(event.data);
+      const price = parseFloat(trade.p);
+      setDataBtc(price);
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      setPrevDataBtc(price);
     };
-    connectWebSockets();
-  }, []);
 
-  const connectWebSocketPercentage = async () => {
-    return new Promise((resolve) => {
-      const socketPrice = new WebSocket(
-        'wss://stream.binance.com:9443/ws/btcusdt@ticker'
-      );
+    const newSocketTicker = new window.WebSocket(
+      `wss://stream.binance.com:9443/ws/${cryptoValue}@ticker`
+    );
+    setSocketTicker(newSocketTicker);
 
-      socketPrice.onopen = () => {
-        console.log(
-          '%cQue buscas?',
-          'background: orange; color: white; font-size: 15px'
-        );
-      };
+    newSocketTicker.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      const percentage = parseFloat(data.P);
+      const percentagePriceValue = parseFloat(data.p);
+      setPricePercentage(percentage.toFixed(2));
+      setPercentagePriceValue(percentagePriceValue);
+    };
 
-      socketPrice.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        const percentage = parseFloat(data.P);
-        const percentagePriceValue = parseFloat(data.p);
-        SetpricePercentage(percentage.toFixed(2));
-        SetpercentagePriceValue(percentagePriceValue);
-        resolve();
-      };
-
-      socketPrice.onclose = () => {
-        console.log('Conexión cerrada');
-      };
-
-      return () => {
-        socketPrice.close();
-      };
-    });
-  };
-
-  const connectWebSocket = async () => {
-    return new Promise((resolve) => {
-      const socket = new window.WebSocket(
-        'wss://stream.binance.com:9443/ws/btcusdt@trade'
-      );
-
-      socket.onopen = () => {
-        console.log(
-          '%cConexión establecida correctamente.',
-          'background: red; color: white; font-size: 4px'
-        );
-      };
-
-      socket.onmessage = async (event) => {
-        const trade = JSON.parse(event.data);
-        const price = parseFloat(trade.p);
-        SetdataBtc(price);
-
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        SetprevDataBtc(price);
-      };
-
-      socket.onclose = () => {
-        console.log('Conexión cerrada');
-      };
-
-      resolve();
-
-      return () => {
-        socket.close();
-      };
-    });
-  };
+    return () => {
+      if (newSocketTrade) {
+        newSocketTrade.close();
+      }
+      if (newSocketTicker) {
+        newSocketTicker.close();
+      }
+    };
+  }, [cryptoValue]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (dataBtc > prevDataBtc) {
-        Setcolor('rgb(14, 203, 129)');
-      } else {
-        Setcolor('rgb(246, 70, 93)');
-      }
+      setColor(
+        dataBtc > prevDataBtc ? 'rgb(14, 203, 129)' : 'rgb(246, 70, 93)'
+      );
     }, 100);
 
     return () => {
@@ -108,23 +79,39 @@ const WebSocketComponent = () => {
     };
   }, [prevDataBtc, dataBtc]);
 
+  console.log(dataBtc);
+
   return (
     <div className="contenedor-price">
       {loading ? (
         <SpinnerLoading />
       ) : (
         <>
-          {dataBtc ? (
+          {dataBtc === 0 ? (
+            <SpinnerLoading />
+          ) : (
             <header className="header-main">
               <img src="/btc.webp" alt="btc"></img>
               <h1 className="bitcoin-main" style={{ color: color }}>
                 Bitcoin: {dataBtc} (En Tiempo Real)
               </h1>
+              <select
+                id="btc"
+                name="btc"
+                onChange={changeValueCrypto}
+                value={cryptoValue}
+              >
+                {CRYPTOMONEDAS.map((cryptoMoney) => (
+                  <option value={cryptoMoney.value} key={cryptoMoney.value}>
+                    {cryptoMoney.label}
+                  </option>
+                ))}
+              </select>
             </header>
-          ) : null}
+          )}
           {percentagePriceValue && pricePercentage && (
             <section className="section-price">
-              En las Ultimas 24 horas, esto paso:
+              En las Últimas 24 horas, esto pasó:
               <h2 className="price-value">
                 {percentagePriceValue} {pricePercentage}%
               </h2>
@@ -137,3 +124,151 @@ const WebSocketComponent = () => {
 };
 
 export default WebSocketComponent;
+
+/*
+
+import { useState, useEffect } from 'react';
+import { SpinnerLoading } from './Spinner';
+import { CRYPTOMONEDAS } from './cryptos';
+
+const WebSocketComponent = () => {
+  const [dataBtc, setDataBtc] = useState(0);
+  const [prevDataBtc, setPrevDataBtc] = useState(0);
+  const [color, setColor] = useState('');
+  const [pricePercentage, setPricePercentage] = useState('');
+  const [percentagePriceValue, setPercentagePriceValue] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [cryptoValue, setCryptoValue] = useState('btcusdt');
+  const [socketTrade, setSocketTrade] = useState(null);
+  const [socketTicker, setSocketTicker] = useState(null);
+
+  const changeValueCrypto = (e) => {
+    setCryptoValue(e.target.value);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    if (dataBtc !== 0) {
+      document.title = `${dataBtc} | BTC.`;
+    } else {
+      document.title = 'CryptoCode.';
+    }
+    setLoading(false);
+  }, [dataBtc]);
+
+  useEffect(() => {
+    setLoading(true);
+
+    // Cerrar los WebSockets existentes antes de abrir nuevos
+    if (socketTrade) {
+      socketTrade.close();
+    }
+    if (socketTicker) {
+      socketTicker.close();
+    }
+
+    // Establecer los nuevos WebSockets con las URLs actualizadas
+    const newSocketTrade = new window.WebSocket(
+      `wss://stream.binance.com:9443/ws/${cryptoValue}@trade`
+    );
+    setSocketTrade(newSocketTrade);
+
+    newSocketTrade.onmessage = async (event) => {
+      const trade = JSON.parse(event.data);
+      const price = parseFloat(trade.p);
+      setDataBtc(price);
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      setPrevDataBtc(price);
+    };
+
+    newSocketTrade.onclose = () => {
+      console.log('WebSocket Trade cerrado');
+    };
+
+    const newSocketTicker = new window.WebSocket(
+      `wss://stream.binance.com:9443/ws/${cryptoValue}@ticker`
+    );
+    setSocketTicker(newSocketTicker);
+
+    newSocketTicker.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      const percentage = parseFloat(data.P);
+      const percentagePriceValue = parseFloat(data.p);
+      setPricePercentage(percentage.toFixed(2));
+      setPercentagePriceValue(percentagePriceValue);
+    };
+
+      setLoading(false);
+
+    return () => {
+      // Cerrar los WebSockets al desmontar el componente
+      if (newSocketTrade) {
+        newSocketTrade.close();
+      }
+      if (newSocketTicker) {
+        newSocketTicker.close();
+      }
+    };
+  }, [cryptoValue]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setColor(
+        dataBtc > prevDataBtc ? 'rgb(14, 203, 129)' : 'rgb(246, 70, 93)'
+      );
+    }, 100);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [prevDataBtc, dataBtc]);
+
+  console.log(dataBtc);
+
+  return (
+    <div className="contenedor-price">
+      {loading ? (
+        <SpinnerLoading />
+      ) : (
+        <>
+          {dataBtc === 0 ? (
+            <SpinnerLoading />
+          ) : (
+            <header className="header-main">
+              <img src="/btc.webp" alt="btc"></img>
+              <h1 className="bitcoin-main" style={{ color: color }}>
+                Bitcoin: {dataBtc} (En Tiempo Real)
+              </h1>
+              <select
+                id="btc"
+                name="btc"
+                onChange={changeValueCrypto}
+                value={cryptoValue}
+              >
+                {CRYPTOMONEDAS.map((cryptoMoney) => (
+                  <option value={cryptoMoney.value} key={cryptoMoney.value}>
+                    {cryptoMoney.label}
+                  </option>
+                ))}
+              </select>
+            </header>
+          )}
+          {percentagePriceValue && pricePercentage && (
+            <section className="section-price">
+              En las Últimas 24 horas, esto pasó:
+              <h2 className="price-value">
+                {percentagePriceValue} {pricePercentage}%
+              </h2>
+            </section>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default WebSocketComponent;
+
+
+*/
