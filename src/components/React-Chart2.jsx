@@ -27,13 +27,16 @@ ChartJS.register(
 const FetchDataApi = () => {
   const [chartData, setChartData] = useState(null);
   const [cryptoCoin, SetCryptoCoin] = useState('bitcoin');
-  const [days, Setdays] = useState(4);
+  const [days, Setdays] = useState(1);
 
-  const test = (e) => {
+  const handleGraphCrypto = (e) => {
     SetCryptoCoin(e.target.value);
   };
 
-  console.log(cryptoCoin);
+  const handleDayChange = (selectedDays) => {
+    Setdays(selectedDays);
+    fetchData(selectedDays);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,35 +74,45 @@ const FetchDataApi = () => {
   }, [days, cryptoCoin]);
 
   return (
-    <div className="graphic-line">
-      <div className="button-days-btc">
-        <select
-          className="options-cryptovalue"
-          id="btc"
-          name="btc"
-          onChange={test}
-          value={cryptoCoin}
-        >
-          {CRYPTOMONEDAS.map((cryptoMoney) => (
-            <option value={cryptoMoney.label} key={cryptoMoney.label}>
-              {cryptoMoney.label.charAt(0).toUpperCase() +
-                cryptoMoney.label.slice(1).toLowerCase()}
-            </option>
+    <>
+      <h2 className="titulo-grafico">Grafico:</h2>
+      <div className="graphic-line">
+        <div className="button-days-btc">
+          <select
+            className="options-cryptovalue"
+            id="btc"
+            name="btc"
+            onChange={handleGraphCrypto}
+            value={cryptoCoin}
+          >
+            {CRYPTOMONEDAS.map((cryptoMoney) => (
+              <option value={cryptoMoney.label} key={cryptoMoney.label}>
+                {cryptoMoney.label.charAt(0).toUpperCase() +
+                  cryptoMoney.label.slice(1).toLowerCase()}
+              </option>
+            ))}
+          </select>
+          {[1, 4, 7, 10, 30].map((day) => (
+            <button
+              key={day}
+              onClick={() => handleDayChange(day)}
+              style={{
+                backgroundColor: days === day ? 'orange' : 'white',
+                outline: 'none', // Elimina el borde al hacer clic
+              }}
+            >
+              {`${day} Dias.`}
+            </button>
           ))}
-        </select>
-        <button onClick={() => Setdays(1)}>1 Dia.</button>
-        <button onClick={() => Setdays(4)}>4 Dias.</button>
-        <button onClick={() => Setdays(7)}>7 Dias.</button>
-        <button onClick={() => Setdays(10)}>10 Dias.</button>
-        <button onClick={() => Setdays(30)}>30 Dias.</button>
+        </div>
+        {chartData && (
+          <Line
+            options={{ responsive: true, maintainAspectRatio: false }}
+            data={chartData}
+          />
+        )}
       </div>
-      {chartData && (
-        <Line
-          options={{ responsive: true, maintainAspectRatio: false }}
-          data={chartData}
-        />
-      )}
-    </div>
+    </>
   );
 };
 
