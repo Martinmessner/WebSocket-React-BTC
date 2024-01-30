@@ -88,9 +88,6 @@ const WebSocketComponent = () => {
           ) : (
             <header className="header-main">
               <img src="/btc.webp" alt="btc"></img>
-              <h1 className="bitcoin-main" style={{ color: color }}>
-                Bitcoin: {dataBtc} (En Tiempo Real)
-              </h1>
               <select
                 className="options-cryptovalue"
                 id="btc"
@@ -105,6 +102,9 @@ const WebSocketComponent = () => {
                   </option>
                 ))}
               </select>
+              <h1 className="bitcoin-main" style={{ color: color }}>
+                {dataBtc} (En Tiempo Real)
+              </h1>
             </header>
           )}
           {percentagePriceValue && pricePercentage && (
