@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import moment from 'moment';
-import { CRYPTOMONEDAS } from './cryptos';
+import { useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
+import moment from "moment";
+import { CRYPTOMONEDAS } from "./cryptos";
 
 import {
   Chart as ChartJS,
@@ -12,7 +12,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 ChartJS.register(
   CategoryScale,
@@ -26,7 +26,7 @@ ChartJS.register(
 
 const FetchDataApi = () => {
   const [chartData, setChartData] = useState(null);
-  const [cryptoCoin, SetCryptoCoin] = useState('bitcoin');
+  const [cryptoCoin, SetCryptoCoin] = useState("bitcoin");
   const [days, Setdays] = useState(1);
 
   const handleGraphCrypto = (e) => {
@@ -35,7 +35,6 @@ const FetchDataApi = () => {
 
   const handleDayChange = (selectedDays) => {
     Setdays(selectedDays);
-    fetchData(selectedDays);
   };
 
   useEffect(() => {
@@ -51,7 +50,7 @@ const FetchDataApi = () => {
       }));
 
       const data = {
-        labels: testResp.map((value) => moment(value.x).format('MMM DD')),
+        labels: testResp.map((value) => moment(value.x).format("MMM DD")),
         datasets: [
           {
             fill: false,
@@ -61,8 +60,8 @@ const FetchDataApi = () => {
             }
            .`,
             data: testResp.map((val) => val.y),
-            borderColor: 'rgb(255, 140, 0)',
-            backgroundColor: 'rgb(148, 0, 211)',
+            borderColor: "rgb(255, 140, 0)",
+            backgroundColor: "rgb(148, 0, 211)",
           },
         ],
       };
@@ -97,8 +96,8 @@ const FetchDataApi = () => {
               key={day}
               onClick={() => handleDayChange(day)}
               style={{
-                backgroundColor: days === day ? 'orange' : 'white',
-                outline: 'none', // Elimina el borde al hacer clic
+                backgroundColor: days === day ? "orange" : "white",
+                outline: "none",
               }}
             >
               {`${day} Dias.`}
