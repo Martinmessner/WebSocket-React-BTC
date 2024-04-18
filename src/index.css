@@ -107,6 +107,12 @@ button:focus-visible {
   text-align: center;
 }
 
+.form-alert {
+  display: flex;
+  padding: 1em;
+  justify-content: center;
+}
+
 @media (max-width: 320px) {
   /* Estilos aplicados aquí */
   .graphic-line {

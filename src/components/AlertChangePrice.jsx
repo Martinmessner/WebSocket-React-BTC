@@ -59,7 +59,7 @@ export default function ChangePrice({ dataBtc }) {
     if (valor > 0) {
       SettestMessage((prevState) => [
         ...prevState,
-        { valor: valor, completed: true, message: "" },
+        { valor: valor, completed: true },
       ]);
     }
   };
@@ -68,7 +68,7 @@ export default function ChangePrice({ dataBtc }) {
     <>
       <button onClick={changeOpenAlert}>Base Beta: Crear Alerta</button>
       {openAlert && (
-        <form onSubmit={handleSubmit}>
+        <form className="form-alert" onSubmit={handleSubmit}>
           <input
             placeholder="Ingrese un valor"
             value={valor}
@@ -85,12 +85,12 @@ export default function ChangePrice({ dataBtc }) {
       <section className="alerts-created">
         {testMessage.length > 0 &&
           testMessage.map((data, index) => {
-            const { valor, message, completed } = data;
+            const { valor } = data;
             return (
               <div key={index}>
                 <p>Alerta N°: {index + 1}</p>
-                <p>{valor}</p>
-                <p>{message}</p>
+                <p>Valor: {valor}</p>
+
                 <button onClick={() => deleteAlert(index)}>
                   <img width="40px" src="/delete.png"></img>
                   <img width="40px" src="/delete2.png"></img>
