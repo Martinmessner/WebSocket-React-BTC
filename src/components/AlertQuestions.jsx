@@ -1,34 +1,15 @@
-import { useState } from "react";
-
-export default function AlertQuestion() {
-  const [openQuestion, SetopenQuestion] = useState(false);
-
-  const openQuestionClick = () => {
-    SetopenQuestion(!openQuestion);
-  };
-
+export default function AlertQuestion({ openQuestion }) {
   return (
     <>
-      <img
-        onClick={openQuestionClick}
-        src="/help.png"
-        title="¿Que es una Alerta?"
-        alt="¿Que es una Alerta?"
-      ></img>
-
       {openQuestion && (
         <section className="section-modal">
           <p>
-            🎈 Una alerta en Bitcoin te avisa sobre cambios importantes en el
-            precio o actividad de la criptomoneda, ayudándote a tomar decisiones
-            informadas en el mercado 🎈
+            🎈Te avisara sobre cambios en el precio ayudándote a tomar
+            decisiones sin tener que monitorear constantemente el mercado.
           </p>
           <p>
-            🎈 Vas a poder estar al tanto de oportunidades de compra o venta sin
-            tener que monitorear constantemente el mercado, ahorrándote tiempo y
-            ayudándote a tomar decisiones más estratégicas 🎈
+            🎈 Bonus Track: Recorda que podes crear cuentas alertas quieras.
           </p>
-          <p>Recorda que podes crear cuentas alertas quieras.</p>
         </section>
       )}
     </>
