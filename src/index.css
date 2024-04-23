@@ -132,6 +132,28 @@ button:focus-visible {
   & > div {
     border: 1px red solid;
     border-radius: 10px;
-    padding: 0.3em;
+    padding: 1em;
   }
+  div > p {
+    padding-bottom: 1em;
+  }
+}
+
+.section-alerts-change {
+  display: flex;
+  justify-content: center;
+
+  & > img {
+    cursor: pointer;
+  }
+}
+
+.section-modal {
+  position: absolute;
+  left: 14px;
+  bottom: 283px;
+  width: 34%;
+  background-color: #ffffff;
+  color: black;
+  font-weight: 600;
 }

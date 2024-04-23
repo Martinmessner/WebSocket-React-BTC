@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AlertQuestion from "./AlertQuestions";
 
 export default function ChangePrice({ dataBtc }) {
   const [openAlert, SetopenAlert] = useState(false);
@@ -66,7 +67,10 @@ export default function ChangePrice({ dataBtc }) {
 
   return (
     <>
-      <button onClick={changeOpenAlert}>Base Beta: Crear Alerta</button>
+      <section className="section-alerts-change">
+        <button onClick={changeOpenAlert}>Crear Alerta</button>
+        <AlertQuestion />
+      </section>
       {openAlert && (
         <form className="form-alert" onSubmit={handleSubmit}>
           <input
@@ -92,9 +96,7 @@ export default function ChangePrice({ dataBtc }) {
                 <p>Valor: {valor}</p>
 
                 <button onClick={() => deleteAlert(index)}>
-                  <img width="40px" src="/delete.png"></img>
-                  <img width="40px" src="/delete2.png"></img>
-                  <img width="40px" src="/delete3.png"></img>
+                  <img width="30px" src="/delete2.png"></img>
                 </button>
               </div>
             );
