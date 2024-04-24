@@ -146,6 +146,8 @@ button:focus-visible {
 .section-alerts-change {
   display: flex;
   justify-content: center;
+  padding-bottom: 1em;
+  align-items: center;
 
   & > img {
     cursor: pointer;
@@ -153,6 +155,7 @@ button:focus-visible {
 }
 
 .section-modal {
+  padding: 1em;
   width: 50%;
   margin: auto;
   background-color: #ffffff;
@@ -160,6 +163,10 @@ button:focus-visible {
   font-weight: 600;
   word-spacing: -2px;
   white-space: break-spaces;
+
+  & > p {
+    margin-bottom: 0.5em;
+  }
 }
 
 .picture {
