@@ -63,7 +63,7 @@ button:focus-visible {
 }
 
 .section-price {
-  padding: 0.6em;
+  padding-top: 1em;
 }
 
 .graphic-line {
@@ -146,7 +146,7 @@ button:focus-visible {
 .section-alerts-change {
   display: flex;
   justify-content: center;
-  padding-bottom: 1em;
+  padding-top: 0.5em;
   align-items: center;
 
   & > img {

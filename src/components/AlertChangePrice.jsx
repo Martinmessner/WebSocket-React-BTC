@@ -23,7 +23,7 @@ export default function ChangePrice({ dataBtc }) {
   };
 
   const testMap = testMessage.map((data) => data.valor);
-
+  /*
   useEffect(() => {
     if (testMap.includes(dataBtc)) {
       SetplaySound(true);
@@ -33,7 +33,7 @@ export default function ChangePrice({ dataBtc }) {
       }, 2000);
     }
   }, [dataBtc, testMap]);
-
+*/
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -44,6 +44,14 @@ export default function ChangePrice({ dataBtc }) {
         ...prevState,
         { valor: valor, completed: true },
       ]);
+    }
+
+    if (testMap.includes(dataBtc)) {
+      SetplaySound(true);
+
+      setTimeout(() => {
+        SetplaySound(false);
+      }, 2000);
     }
   };
 
