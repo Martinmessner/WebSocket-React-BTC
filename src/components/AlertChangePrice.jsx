@@ -8,6 +8,13 @@ export default function ChangePrice({ dataBtc }) {
   const [testMessage, SettestMessage] = useState([]);
   const [openQuestion, SetopenQuestion] = useState(false);
 
+  //test
+  useEffect(() => {
+    // Cargar el audio explícitamente al cargar la página
+    const audio = new Audio("/phone-vibrator.wav");
+    audio.load();
+  }, []);
+
   const openQuestionClick = () => {
     SetopenQuestion(!openQuestion);
   };
@@ -95,26 +102,3 @@ export default function ChangePrice({ dataBtc }) {
     </>
   );
 }
-
-/*
-  Queda por tenerlo nomas
-  useEffect(() => {
-    if (valor === dataBtc && valor > 0) {
-      SetplaySound(true);
-
-      SettestMessage((prevState) => [
-        ...prevState,
-        { valor: valor, completed: true, message: "" },
-      ]);
-
-      SetviewMessageAlerta(true);
-
-      // Setvalor("");
-
-      setTimeout(() => {
-        SetplaySound(false);
-      }, 3000);
-    }
-  }, [valor, dataBtc]);
-
-*/
