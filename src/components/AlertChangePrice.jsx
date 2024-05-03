@@ -11,8 +11,7 @@ export default function ChangePrice({ dataBtc }) {
   //test
   useEffect(() => {
     // Cargar el audio explícitamente al cargar la página
-    const audio = new Audio("/phone-vibrator.wav");
-    audio.load();
+    SetplaySound(true);
   }, []);
 
   const openQuestionClick = () => {
