@@ -8,12 +8,6 @@ export default function ChangePrice({ dataBtc }) {
   const [testMessage, SettestMessage] = useState([]);
   const [openQuestion, SetopenQuestion] = useState(false);
 
-  //test
-  useEffect(() => {
-    // Cargar el audio explícitamente al cargar la página
-    SetplaySound(true);
-  }, []);
-
   const openQuestionClick = () => {
     SetopenQuestion(!openQuestion);
   };
@@ -37,7 +31,7 @@ export default function ChangePrice({ dataBtc }) {
         SetplaySound(false);
       }, 2000);
     }
-  }, [dataBtc, testMap]);
+  }, [dataBtc, testMap, testMessage]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
